@@ -14,7 +14,7 @@ int main()
 	std::vector<FiguraGeometrica*> figs;
 	std::ifstream arq("testezao.txt", std::ios::in);
 
-	std::string part1;
+	std::string k;
 	int nx, ny, nz;
 
 
@@ -28,25 +28,25 @@ int main()
 		std::exit(1);
 	}
 
-	arq >> part1 >> nx >> ny >> nz;
+	arq >> k >> nx >> ny >> nz;
 	Sculptor sculp(nx, ny, nz);
 	cout << "Tamanho da estrutura: " << nx << "x" << ny << "x" << nz << "\n\n";
 
-	while (arq >> part1) {
+	while (arq >> k) {
 
-		if ("putvoxel" == part1) {
+		if (k.compare("putvoxel") == 0) {
 
 			arq >> x >> y >> z
 				>> std::setprecision(2) >> r >> std::setprecision(2) >> g >> std::setprecision(2) >> b >> std::setprecision(2) >> a;
 
 			figs.push_back(new PutVoxel(x, y, z, r, g, b, a));
 		}
-		else if ("cutvoxel" == part1) {
+		else if (k.compare("cutvoxel") == 0 ) {
 			arq >> x >> y >> z;
 
 			figs.push_back(new CutVoxel(x, y, z));
 		}
-		else if ("putbox" == part1) {
+		else if (k.compare("putbox") == 0 ) {
 			arq >> x >> x1
 				>> y >> y1
 				>> z >> z1
@@ -54,26 +54,26 @@ int main()
 
 			figs.push_back(new PutBox(x, y, z, x1, y1, z1, r, g, b, a));
 		}
-		else if ("cutbox" == part1) {
+		else if (k.compare("cutbox") == 0 ) {
 			arq >> x >> x1
 				>> y >> y1
 				>> z >> z1;
 			figs.push_back(new CutBox(x, y, z, x1, y1, z1));
 
 		}
-		else if ("putsphere" == part1) {
+		else if (k.compare("putsphere") == 0 ) {
 			arq >> x >> y >> z
 				>> rd
 				>> std::setprecision(2) >> r >> std::setprecision(2) >> g >> std::setprecision(2) >> b >> std::setprecision(2) >> a;
 
 			figs.push_back(new PutSphere(x, y, z, rd, r, g, b, a));
 		}
-		else if ("cutsphere" == part1) {
+		else if (k.compare("cutsphere") == 0 ) {
 			arq >> x >> y >> z
 				>> rd;
 			figs.push_back(new CutSphere(x, y, z, rd));
 		}
-		else if ("putellipsoid" == part1) {
+		else if (k.compare("putellipsoid") == 0) {
 			arq >> x >> y >> z
 				>> rdx >> rdy >> rdz
 				>> std::setprecision(2) >> r >> std::setprecision(2) >> g >> std::setprecision(2) >> b >> std::setprecision(2) >> (a);
@@ -81,7 +81,7 @@ int main()
 			figs.push_back(new PutEllipsoid(x, y, z, rdx, rdy, rdz, r, g, b, a));
 
 		}
-		else if ("cutellipsoid" == part1) {
+		else if (k.compare("cutellipsoid") == 0) {
 			arq >> x >> y >> z
 				>> rdx >> rdy >> rdz;
 
